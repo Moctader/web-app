@@ -31,4 +31,3 @@ async def add_to_cart(request: Request, product_id: int = Form(...)):
 async def view_cart(request: Request):
     total = sum(item['price'] for item in cart)
     return templates.TemplateResponse("cart.html", {"request": request, "cart": cart, "total": total})
-# End of app.py
