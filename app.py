@@ -25,9 +25,13 @@ async def add_to_cart(request: Request, product_id: int = Form(...)):
     product = next((p for p in products if p["id"] == product_id), None)
     if product:
         cart.append(product)
-    return templates.TemplateResponse("index.html", {"request": request, "products": products})
+    return templates.TemplateResponse(request, "index.html", {"products": products})
 
 @app.get("/cart", response_class=HTMLResponse)
 async def view_cart(request: Request):
     total = sum(item['price'] for item in cart)
-    return templates.TemplateResponse("cart.html", {"request": request, "cart": cart, "total": total})
+    return templates.TemplateResponse(request, "cart.html", {"cart": cart, "total": total})
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
