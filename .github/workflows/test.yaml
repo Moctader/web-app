@@ -19,10 +19,14 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.12.3'  # You can specify the Python version here
+        python-version: '3.12.3'
 
     - name: Install dependencies
-      run: pip install -r requirements.txt  # Adjust this according to your project setup
+      run: pip install -r requirements.txt
       
+    - name: Debug test file location
+      run: ls -R
+      working-directory: ${{ github.workspace }}
+
     - name: Run tests
       run: python -m unittest discover
